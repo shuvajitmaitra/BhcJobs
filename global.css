@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-brand-primary: 71 127 245;
+    --color-brand-secondary: 97 161 255;
+    --color-brand-accent: 225 237 255;
+
+    --color-app-bg: 248 250 255;
+    --color-app-bg-alt: 238 244 255;
+    --color-app-surface: 255 255 255;
+    --color-app-surface-muted: 234 241 253;
+    --color-app-card: 255 255 255;
+    --color-app-card-border: 219 228 242;
+    --color-app-text: 55 65 81;
+    --color-app-text-muted: 102 112 133;
+    --color-app-text-soft: 150 160 178;
+    --color-hero-from: 68 118 241;
+    --color-hero-to: 124 183 255;
+    --color-app-shadow: 29 53 87;
+  }
+
+  .dark:root {
+    --color-brand-primary: 71 127 245;
+    --color-brand-secondary: 84 136 255;
+    --color-brand-accent: 67 78 100;
+
+    --color-app-bg: 14 22 38;
+    --color-app-bg-alt: 21 31 49;
+    --color-app-surface: 32 43 61;
+    --color-app-surface-muted: 57 68 89;
+    --color-app-card: 66 77 98;
+    --color-app-card-border: 80 92 115;
+    --color-app-text: 248 250 252;
+    --color-app-text-muted: 194 202 214;
+    --color-app-text-soft: 169 178 194;
+    --color-hero-from: 22 33 54;
+    --color-hero-to: 34 43 60;
+    --color-app-shadow: 0 0 0;
+  }
+}
