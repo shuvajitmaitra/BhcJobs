@@ -7,5 +7,4 @@ const config = mergeConfig(getDefaultConfig(__dirname), {
 
 module.exports = withNativeWind(config, {
   input: './global.css',
-  forceWriteFileSystem: true,
 });

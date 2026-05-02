@@ -1,45 +1,19 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import { useLandingData } from '../../hooks/useLandingData';
+import { ScrollView, View } from 'react-native';
+import BannerSection from '../../components/Landing/BannerSection';
 
 const LandingScreen = () => {
-  const {
-    companies,
-    companiesError,
-    companiesLoading,
-    industries,
-    industriesError,
-    industriesLoading,
-    isAuthenticate,
-    jobs,
-    jobsError,
-    jobsLoading,
-  } = useLandingData();
+  const scrollContentStyle = { paddingBottom: 32 };
 
   return (
-    <View className="flex-1 justify-center items-center bg-app-bg">
-      <Text>LandingScreen</Text>
-      <Text>{`Authenticated: ${isAuthenticate ? 'yes' : 'no'}`}</Text>
-      <View>
-        <Text>{`Industries loading: ${industriesLoading ? 'yes' : 'no'}`}</Text>
-        {industriesError ? (
-          <Text>{`Industries error: ${industriesError}`}</Text>
-        ) : null}
-        <Text>{`Loaded industries: ${industries.length}`}</Text>
-      </View>
-      <View>
-        <Text>{`Companies loading: ${companiesLoading ? 'yes' : 'no'}`}</Text>
-        {companiesError ? (
-          <Text>{`Companies error: ${companiesError}`}</Text>
-        ) : null}
-        <Text>{`Loaded companies: ${companies.length}`}</Text>
-      </View>
-      <View>
-        <Text>{`Jobs loading: ${jobsLoading ? 'yes' : 'no'}`}</Text>
-        {jobsError ? <Text>{`Jobs error: ${jobsError}`}</Text> : null}
-        <Text>{`Loaded jobs: ${jobs.length}`}</Text>
-      </View>
-    </View>
+    <ScrollView
+      className="flex-1 bg-app-surface"
+      contentContainerStyle={scrollContentStyle}
+      showsVerticalScrollIndicator={false}
+    >
+      <BannerSection />
+      <View className="px-5 pt-6" />
+    </ScrollView>
   );
 };
 
