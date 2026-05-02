@@ -1,10 +1,15 @@
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import './global.css';
-import { Text, View } from 'react-native';
+import { persistor, store } from './src/redux/store';
+import LandingScreen from './src/screens/home/LandingScreen';
 
 export default function App() {
   return (
-    <View className="flex-1 bg-app-bg justify-center items-center">
-      <Text>Hello</Text>
-    </View>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <LandingScreen />
+      </PersistGate>
+    </Provider>
   );
 }
