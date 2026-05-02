@@ -1,46 +1,49 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-type AuthUser = {
+export type AuthUser = {
   id?: number | string;
   name?: string;
   email?: string;
+  [key: string]: unknown;
 };
 
 type AuthState = {
   token: string | null;
   user: AuthUser | null;
-  isAuthenticated: boolean;
+  isAuthenticate: boolean;
 };
 
 const initialState: AuthState = {
   token: null,
   user: null,
-  isAuthenticated: false,
+  isAuthenticate: false,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setCredentials: (
-      state,
-      action: PayloadAction<{ token: string; user?: AuthUser | null }>,
-    ) => {
-      state.token = action.payload.token;
-      state.user = action.payload.user ?? null;
-      state.isAuthenticated = true;
+    setToken: (state, action: PayloadAction<string | null>) => {
+      state.token = action.payload;
+      state.isAuthenticate = Boolean(action.payload);
     },
-    updateUser: (state, action: PayloadAction<AuthUser | null>) => {
+    removeToken: state => {
+      state.token = null;
+      state.isAuthenticate = false;
+    },
+    setUser: (state, action: PayloadAction<AuthUser | null>) => {
       state.user = action.payload;
     },
-    clearAuth: state => {
-      state.token = null;
-      state.user = null;
-      state.isAuthenticated = false;
+    updateUser: (state, action: PayloadAction<Partial<AuthUser>>) => {
+      state.user = {
+        ...(state.user ?? {}),
+        ...action.payload,
+      };
     },
   },
 });
 
-export const { setCredentials, updateUser, clearAuth } = authSlice.actions;
+export const { setToken, removeToken, setUser, updateUser } =
+  authSlice.actions;
 
 export default authSlice.reducer;
