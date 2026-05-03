@@ -10,6 +10,8 @@ import { TIndustry } from '../../types/industryTypes';
 import { gGap } from '../../utils/Sizes';
 import SeeMoreButton from '../common/SeeMoreButton';
 
+const DEFAULT_VISIBLE_ITEMS = 8;
+
 const PopularIndustriesSection = () => {
   const dispatch = useAppDispatch();
   const industries = useAppSelector(state => state.industry.industries);
@@ -30,7 +32,7 @@ const PopularIndustriesSection = () => {
       return industries;
     }
 
-    return industries.slice(0, 6);
+    return industries.slice(0, DEFAULT_VISIBLE_ITEMS);
   }, [expanded, industries]);
 
   if (error) {
@@ -56,7 +58,7 @@ const PopularIndustriesSection = () => {
 
       <SeeMoreButton
         expanded={expanded}
-        // hidden={expanded}
+        hidden={industries.length <= DEFAULT_VISIBLE_ITEMS}
         onPress={() => setExpanded(current => !current)}
       />
     </View>
