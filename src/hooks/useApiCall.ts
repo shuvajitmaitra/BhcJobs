@@ -9,34 +9,33 @@ type ApiCallResult<T> = {
   } | null;
 };
 
-export function useApiCall<T>(
-  request: () => Promise<ApiCallResult<T>>,
+export function useApiCall<T, P = void>(
+  request: (params: P) => Promise<ApiCallResult<T>>,
   onSuccess?: (data: T) => void,
 ) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const execute = useCallback(async () => {
-    setLoading(true);
-    setError(null);
+  const execute = useCallback(
+    async (params: P) => {
+      setLoading(true);
+      setError(null);
 
-    const result = await request();
+      const result = await request(params);
 
-    if (result.data && onSuccess) {
-      onSuccess(result.data);
-    }
+      if (result.data && onSuccess) {
+        onSuccess(result.data);
+      }
 
-    if (result.error) {
-      setError(result.error.message);
-    }
+      if (result.error) {
+        setError(result.error.message);
+      }
 
-    setLoading(false);
-    return result;
-  }, [onSuccess, request]);
+      setLoading(false);
+      return result;
+    },
+    [onSuccess, request],
+  );
 
-  return {
-    error,
-    execute,
-    loading,
-  };
+  return { error, execute, loading };
 }
