@@ -4,6 +4,7 @@ import BannerSection from '../../components/Landing/BannerSection';
 import PopularIndustriesSection from '../../components/Landing/PopularIndustriesSection';
 import RecommendedJobsSection from '../../components/Landing/RecommendedJobsSection';
 import TrendingJobsSection from '../../components/Landing/TrendingJobsSection';
+import CompaniesSection from '../../components/Landing/CompaniesSection';
 
 const LandingScreen = () => {
   const scrollContentStyle = { paddingBottom: 32 };
@@ -18,6 +19,7 @@ const LandingScreen = () => {
       <PopularIndustriesSection />
       <TrendingJobsSection />
       <RecommendedJobsSection />
+      <CompaniesSection />
     </ScrollView>
   );
 };
