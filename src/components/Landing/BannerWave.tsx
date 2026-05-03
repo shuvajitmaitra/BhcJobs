@@ -20,7 +20,7 @@ const createSineWavePath = (
   width = 1440,
   height = 180,
   midY = 80,
-  amplitude = 25,
+  amplitude = 20,
   cycles = 1,
 ) => {
   const points = Array.from({ length: 121 }, (_, i) => {
@@ -41,7 +41,7 @@ const BannerWave = ({ backgroundColor }: BannerWaveProps) => {
   useEffect(() => {
     translateX.value = withRepeat(
       withTiming(-SCREEN_WIDTH, {
-        duration: 15000,
+        duration: 5000,
         easing: Easing.linear,
       }),
       -1,
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    bottom: 50,
+    bottom: 70,
     height: 96,
     overflow: 'hidden',
   },

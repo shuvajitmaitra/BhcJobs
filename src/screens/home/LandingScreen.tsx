@@ -1,6 +1,7 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView } from 'react-native';
 import BannerSection from '../../components/Landing/BannerSection';
+import PopularIndustriesSection from '../../components/Landing/PopularIndustriesSection';
 
 const LandingScreen = () => {
   const scrollContentStyle = { paddingBottom: 32 };
@@ -12,7 +13,7 @@ const LandingScreen = () => {
       showsVerticalScrollIndicator={false}
     >
       <BannerSection />
-      <View className="px-5 pt-6" />
+      <PopularIndustriesSection />
     </ScrollView>
   );
 };

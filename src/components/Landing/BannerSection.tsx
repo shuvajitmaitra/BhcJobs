@@ -5,7 +5,7 @@ import { useColorScheme } from 'nativewind';
 import LinearGradient from 'react-native-linear-gradient';
 import RNText from '../common/RNText';
 import { gGap } from '../../utils/Sizes';
-import BannerWave from './BannerWave';
+// import BannerWave from './BannerWave';
 
 const BannerSection = () => {
   const { colorScheme } = useColorScheme();
@@ -13,9 +13,9 @@ const BannerSection = () => {
   const heroGradient = isDark
     ? ['rgb(22 33 54)', 'rgb(34 43 60)']
     : ['rgb(68 118 241)', 'rgb(124 183 255)'];
-  const waveBackground = isDark
-    ? 'rgba(14, 22, 38, 1)'
-    : 'rgba(248, 250, 255, 1)';
+  // const waveBackground = isDark
+  //   ? 'rgba(14, 22, 38, 1)'
+  //   : 'rgba(248, 250, 255, 1)';
 
   return (
     <>
@@ -25,8 +25,8 @@ const BannerSection = () => {
         end={{ x: 1, y: 1 }}
         className="overflow-hidden"
       >
-        <View className="w-full overflow-hidden  opacity-90">
-          <View className="overflow-hidden px-5 pt-20 pb-32">
+        <View className="w-full flex-1">
+          <View className="overflow-hidden px-5 py-12">
             <View className="items-center">
               <RNText className="text-center font-black text-3xl text-white">
                 #1 Platform for Saudi Jobs
@@ -52,7 +52,7 @@ const BannerSection = () => {
           </View>
         </View>
       </LinearGradient>
-      <BannerWave backgroundColor={waveBackground} />
+      {/* <BannerWave backgroundColor={waveBackground} /> */}
     </>
   );
 };
