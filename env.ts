@@ -2,7 +2,7 @@ export const ENV: 'production' | 'local' = 'production';
 
 const CONFIG = {
   production: {
-    BASE_URL: 'https://dev.bhcjobs.com',
+    BASE_URL: 'https://api.bhcjobs.com',
     STORAGE_BASE_URL: 'https://api.bhcjobs.com/storage',
   },
   local: {

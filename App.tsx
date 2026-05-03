@@ -4,6 +4,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './src/redux/store';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Navigation from './src/navigation/Navigation';
+import Toast from 'react-native-toast-message';
+import { toastConfig } from './src/components/common/ToastConfig';
 
 export default function App() {
   return (
@@ -11,6 +13,7 @@ export default function App() {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <Navigation />
+          <Toast config={toastConfig} />
         </PersistGate>
       </Provider>
     </SafeAreaProvider>

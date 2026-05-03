@@ -1,10 +1,12 @@
 import React from 'react';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import { BriefcaseBusiness, Clock3, MapPin } from 'lucide-react-native';
 import RNText from '../common/RNText';
 import { TJob } from '../../types/jobTypes';
 import { useThemeColors } from '../../hooks/useThemeColors';
 import { withOpacity } from '../../utils/commonFunction';
+import CardBadge from '../common/CardBadge';
+import CardActionButton from '../common/CardActionButton';
 
 type TrendingJobCardProps = {
   item: TJob;
@@ -142,43 +144,22 @@ const TrendingJobCard = ({
       </View>
 
       <View className="mt-4 flex-row gap-4">
-        <View
-          style={{ backgroundColor: withOpacity(colors.primary, 0.1) }}
-          className="flex-row items-center gap-2 rounded-xl border border-primary bg-muted px-2 py-2"
-        >
-          <BriefcaseBusiness color="#4B84F6" size={20} strokeWidth={2.1} />
-          <RNText className="text-base font-medium uppercase tracking-[0.4px] text-foreground">
-            {category}
-          </RNText>
-        </View>
-        <View
-          style={{ backgroundColor: withOpacity(colors.primary, 0.1) }}
-          className="flex-row items-center gap-2 rounded-xl border border-primary bg-muted px-4 py-2"
-        >
-          <MapPin color="#4B84F6" size={20} strokeWidth={2.1} />
-          <RNText className="text-base font-medium uppercase tracking-[0.4px] text-foreground">
-            {location}
-          </RNText>
-        </View>
+        <CardBadge icon={BriefcaseBusiness} text={category} />
+        <CardBadge icon={MapPin} text={location} />
       </View>
 
       <View className="mt-4 flex-row gap-4">
-        <Pressable
+        <CardActionButton
+          label="View"
           onPress={onPressView}
-          className="flex-1 items-center justify-center rounded-2xl border border-primary bg-card py-5"
-        >
-          <RNText className="text-[18px] font-extrabold text-primary">
-            View
-          </RNText>
-        </Pressable>
-        <Pressable
+          className="rounded-2xl border-primary bg-card"
+        />
+        <CardActionButton
+          label="Apply Now"
           onPress={onPressApply}
-          className="flex-1 items-center justify-center rounded-2xl bg-primary py-5"
-        >
-          <RNText className="text-[18px] font-extrabold text-white">
-            Apply Now
-          </RNText>
-        </Pressable>
+          variant="solid"
+          className="rounded-2xl"
+        />
       </View>
     </View>
   );

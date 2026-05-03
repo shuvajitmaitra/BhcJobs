@@ -20,7 +20,7 @@ const GlobalHeader = () => {
   return (
     <View
       style={{ paddingTop: top }}
-      className="border-b border-primary bg-background"
+      className="border-b border-border bg-background"
     >
       <GlobalStatusBar />
       <View className="flex-row items-center justify-between px-5 pb-2">

@@ -14,10 +14,11 @@ export type TJob = {
   industry_name?: string;
   status?: string;
   type?: string;
-  currency?: string;
+  currency: string;
   salary_type?: string;
-  min_salary?: number;
+  min_salary: number;
   max_salary?: number;
+  office_rate?: number | null;
   salary?: string | number;
   salary_bdt?: string | number;
   food_option?: string | number | null;
@@ -27,6 +28,7 @@ export type TJob = {
   expiry?: string;
   is_active?: 0 | 1;
   is_trending?: 0 | 1;
+  is_hot?: 0 | 1;
   category?: {
     id: number;
     name: string;
