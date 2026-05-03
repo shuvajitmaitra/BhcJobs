@@ -11,12 +11,14 @@ type AuthState = {
   token: string | null;
   user: AuthUser | null;
   isAuthenticate: boolean;
+  theme: 'light' | 'dark';
 };
 
 const initialState: AuthState = {
   token: null,
   user: null,
   isAuthenticate: false,
+  theme: 'light',
 };
 
 const authSlice = createSlice({
@@ -34,6 +36,9 @@ const authSlice = createSlice({
     setUser: (state, action: PayloadAction<AuthUser | null>) => {
       state.user = action.payload;
     },
+    toggleLocalTheme: state => {
+      state.theme = state.theme === 'dark' ? 'light' : 'dark';
+    },
     updateUser: (state, action: PayloadAction<Partial<AuthUser>>) => {
       state.user = {
         ...(state.user ?? {}),
@@ -43,7 +48,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { setToken, removeToken, setUser, updateUser } =
+export const { setToken, removeToken, setUser, updateUser, toggleLocalTheme } =
   authSlice.actions;
 
 export default authSlice.reducer;
