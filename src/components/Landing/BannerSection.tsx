@@ -25,7 +25,7 @@ const BannerSection = () => {
         end={{ x: 1, y: 1 }}
         className="overflow-hidden"
       >
-        <View className="w-full flex-1">
+        <View className="w-full">
           <View className="overflow-hidden px-5 py-12">
             <View className="items-center">
               <RNText className="text-center font-black text-3xl text-white">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable } from 'react-native';
-import { ChevronDown } from 'lucide-react-native';
+import { ChevronDown, ChevronUp } from 'lucide-react-native';
 
 type SeeMoreButtonProps = {
   expanded?: boolean;
@@ -20,16 +20,13 @@ const SeeMoreButton = ({
   return (
     <Pressable
       onPress={onPress}
-      className="mt-6 h-20 w-32 self-center items-center justify-center rounded-[20px] border-2 border-brand-primary bg-app-surface"
+      className="mt-6 h-10 w-20 self-center items-center justify-center rounded-xl border-2 border-brand-primary bg-app-surface"
     >
-      <ChevronDown
-        size={28}
-        color="#4B84F6"
-        strokeWidth={2.4}
-        style={{
-          transform: [{ rotate: expanded ? '180deg' : '0deg' }],
-        }}
-      />
+      {expanded ? (
+        <ChevronUp size={25} color="#4B84F6" strokeWidth={2.4} />
+      ) : (
+        <ChevronDown size={25} color="#4B84F6" strokeWidth={2.4} />
+      )}
     </Pressable>
   );
 };
