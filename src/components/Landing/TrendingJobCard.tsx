@@ -3,6 +3,8 @@ import { Pressable, View } from 'react-native';
 import { BriefcaseBusiness, Clock3, MapPin } from 'lucide-react-native';
 import RNText from '../common/RNText';
 import { TJob } from '../../types/jobTypes';
+import { useThemeColors } from '../../hooks/useThemeColors';
+import { withOpacity } from '../../utils/commonFunction';
 
 type TrendingJobCardProps = {
   item: TJob;
@@ -74,6 +76,7 @@ const TrendingJobCard = ({
   onPressView,
   onPressApply,
 }: TrendingJobCardProps) => {
+  const { colors } = useThemeColors();
   const title = toText(
     item.job_title ?? item.title ?? item.name,
     'Service Crew',
@@ -103,48 +106,57 @@ const TrendingJobCard = ({
       item.food_allowance_bdt.trim());
 
   return (
-    <View className="relative rounded-[28px] bg-app-card border border-app-cardBorder px-5 pb-6 mt-6 pt-6">
-      <View className="flex-row justify-end -mt-10 ">
+    <View
+      style={{ backgroundColor: withOpacity(colors.primary, 0.2) }}
+      className="relative rounded-2xl bg-card border border-border px-5 pb-6 mt-6"
+    >
+      <View className="flex-row justify-end -mt-6 ">
         <View className="flex-row items-center gap-3 rounded-lg bg-[#ffd9d6] px-3 py-2 shadow-soft">
           <Clock3 color="#ef4444" size={18} strokeWidth={2.1} />
           <RNText className="text-lg font-semibold text-black">{status}</RNText>
         </View>
       </View>
 
-      <RNText className="text-2xl font-bold text-app-text">{title}</RNText>
-      <RNText className="mt-1 text-xl font-bold text-app-textMuted">
+      <RNText className="text-2xl font-bold text-foreground">{title}</RNText>
+      <RNText className="mt-1 text-xl font-bold text-muted-foreground">
         {company}
       </RNText>
 
       <View className="">
-        <RNText className="text-xl font-extrabold text-app-text">
+        <RNText className="text-lg font-extrabold text-foreground">
           {`Salary: ${salary}`}
         </RNText>
         {showSalaryBdt ? (
-          <RNText className="text-xl font-extrabold text-app-text">
+          <RNText className="text-lg font-extrabold text-foreground">
             {`(${salaryBdt})`}
           </RNText>
         ) : null}
-        <RNText className="text-xl font-extrabold text-app-text">
+        <RNText className="text-lg font-extrabold text-foreground">
           {`Food Allowance: ${foodAllowance}`}
         </RNText>
         {showFoodAllowanceBdt ? (
-          <RNText className="text-xl font-extrabold text-app-text">
+          <RNText className="text-xl font-extrabold text-foreground">
             {`(${foodAllowanceBdt})`}
           </RNText>
         ) : null}
       </View>
 
       <View className="mt-4 flex-row gap-4">
-        <View className="flex-row items-center gap-2 rounded-xl border border-brand-primary bg-brand-secondary px-2 py-2">
+        <View
+          style={{ backgroundColor: withOpacity(colors.primary, 0.1) }}
+          className="flex-row items-center gap-2 rounded-xl border border-primary bg-muted px-2 py-2"
+        >
           <BriefcaseBusiness color="#4B84F6" size={20} strokeWidth={2.1} />
-          <RNText className="text-base font-medium uppercase tracking-[0.4px] text-slate-800">
+          <RNText className="text-base font-medium uppercase tracking-[0.4px] text-foreground">
             {category}
           </RNText>
         </View>
-        <View className="flex-row items-center gap-2 rounded-xl border border-brand-primary bg-brand-accent px-4 py-2">
+        <View
+          style={{ backgroundColor: withOpacity(colors.primary, 0.1) }}
+          className="flex-row items-center gap-2 rounded-xl border border-primary bg-muted px-4 py-2"
+        >
           <MapPin color="#4B84F6" size={20} strokeWidth={2.1} />
-          <RNText className="text-base font-medium uppercase tracking-[0.4px] text-slate-800">
+          <RNText className="text-base font-medium uppercase tracking-[0.4px] text-foreground">
             {location}
           </RNText>
         </View>
@@ -153,15 +165,15 @@ const TrendingJobCard = ({
       <View className="mt-4 flex-row gap-4">
         <Pressable
           onPress={onPressView}
-          className="flex-1 items-center justify-center rounded-[14px] border border-brand-primary bg-white py-5"
+          className="flex-1 items-center justify-center rounded-2xl border border-primary bg-card py-5"
         >
-          <RNText className="text-[18px] font-extrabold text-brand-primary">
+          <RNText className="text-[18px] font-extrabold text-primary">
             View
           </RNText>
         </Pressable>
         <Pressable
           onPress={onPressApply}
-          className="flex-1 items-center justify-center rounded-[14px] bg-brand-primary py-5"
+          className="flex-1 items-center justify-center rounded-2xl bg-primary py-5"
         >
           <RNText className="text-[18px] font-extrabold text-white">
             Apply Now

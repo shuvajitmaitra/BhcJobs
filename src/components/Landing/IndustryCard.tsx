@@ -16,7 +16,7 @@ const IndustryCard = ({ item, onPress }: IndustryCardProps) => {
   return (
     <Pressable
       onPress={onPress}
-      className="flex-1 items-center justify-center rounded-[18px] border border-app-cardBorder bg-app-surface px-5 py-6"
+      className="flex-1 items-center justify-center rounded-2xl border border-border bg-card px-5 py-6"
     >
       <View className="mb-[18px] h-14 w-14 items-center justify-center">
         {image ? (
@@ -30,11 +30,11 @@ const IndustryCard = ({ item, onPress }: IndustryCardProps) => {
         )}
       </View>
 
-      <RNText className="text-center text-[20px] font-extrabold leading-[26px] text-app-text">
+      <RNText className="text-center text-[20px] font-extrabold leading-[26px] text-foreground">
         {name}
       </RNText>
 
-      <RNText className="mt-2 text-center text-sm font-medium leading-5 text-app-text-muted">
+      <RNText className="mt-2 text-center text-sm font-medium leading-5 text-muted-foreground">
         {`${jobs_count} Available Jobs`}
       </RNText>
     </Pressable>

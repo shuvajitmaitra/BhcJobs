@@ -9,7 +9,7 @@ const LandingScreen = () => {
 
   return (
     <ScrollView
-      className="flex-1 bg-app-bg"
+      className="flex-1 bg-background"
       contentContainerStyle={scrollContentStyle}
       showsVerticalScrollIndicator={false}
     >

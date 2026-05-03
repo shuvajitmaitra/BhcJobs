@@ -44,7 +44,7 @@ const BannerSection = () => {
                   className="flex-1 text-[#2A3448] h-14 pl-2"
                 />
 
-                <Pressable className="items-center justify-center bg-brand-primary rounded-full p-2">
+                <Pressable className="items-center justify-center bg-primary rounded-full p-2">
                   <Search color="#FFFFFF" size={gGap(16)} strokeWidth={2.4} />
                 </Pressable>
               </View>

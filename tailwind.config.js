@@ -1,34 +1,62 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class',
-  content: [
-    './App.tsx',
-    './src/**/*.{js,jsx,ts,tsx}',
-    './components/**/*.{js,jsx,ts,tsx}',
-    './screens/**/*.{js,jsx,ts,tsx}',
-  ],
+  content: ['./App.tsx', './src/**/*.{js,jsx,ts,tsx}'],
   presets: [require('nativewind/preset')],
   theme: {
     extend: {
       colors: {
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        card: {
+          DEFAULT: 'var(--card)',
+          foreground: 'var(--card-foreground)',
+        },
+        popover: {
+          DEFAULT: 'var(--popover)',
+          foreground: 'var(--popover-foreground)',
+        },
+        primary: {
+          DEFAULT: 'var(--primary)',
+          foreground: 'var(--primary-foreground)',
+        },
+        secondary: {
+          DEFAULT: 'var(--secondary)',
+          foreground: 'var(--secondary-foreground)',
+        },
+        muted: {
+          DEFAULT: 'var(--muted)',
+          foreground: 'var(--muted-foreground)',
+        },
+        accent: {
+          DEFAULT: 'var(--accent)',
+          foreground: 'var(--accent-foreground)',
+        },
+        destructive: {
+          DEFAULT: 'var(--destructive)',
+          foreground: 'var(--destructive-foreground)',
+        },
+        border: 'var(--border)',
+        input: 'var(--input)',
+        ring: 'var(--ring)',
         brand: {
-          primary: 'rgb(var(--color-brand-primary) / <alpha-value>)',
-          secondary: 'rgb(var(--color-brand-secondary) / <alpha-value>)',
-          accent: 'rgb(var(--color-brand-accent) / <alpha-value>)',
+          primary: 'var(--primary)',
+          secondary: 'var(--secondary)',
+          accent: 'var(--accent)',
         },
         app: {
-          bg: 'rgb(var(--color-app-bg) / <alpha-value>)',
-          bgAlt: 'rgb(var(--color-app-bg-alt) / <alpha-value>)',
-          surface: 'rgb(var(--color-app-surface) / <alpha-value>)',
-          surfaceMuted: 'rgb(var(--color-app-surface-muted) / <alpha-value>)',
-          card: 'rgb(var(--color-app-card) / <alpha-value>)',
-          cardBorder: 'rgb(var(--color-app-card-border) / <alpha-value>)',
-          text: 'rgb(var(--color-app-text) / <alpha-value>)',
-          textMuted: 'rgb(var(--color-app-text-muted) / <alpha-value>)',
-          textSoft: 'rgb(var(--color-app-text-soft) / <alpha-value>)',
-          heroFrom: 'rgb(var(--color-hero-from) / <alpha-value>)',
-          heroTo: 'rgb(var(--color-hero-to) / <alpha-value>)',
-          shadow: 'rgb(var(--color-app-shadow) / <alpha-value>)',
+          bg: 'var(--background)',
+          bgAlt: 'var(--muted)',
+          surface: 'var(--card)',
+          surfaceMuted: 'var(--accent)',
+          card: 'var(--card)',
+          cardBorder: 'var(--border)',
+          text: 'var(--foreground)',
+          textMuted: 'var(--muted-foreground)',
+          textSoft: 'var(--secondary-foreground)',
+          heroFrom: 'var(--primary)',
+          heroTo: 'var(--ring)',
+          shadow: 'var(--foreground)',
         },
       },
       boxShadow: {

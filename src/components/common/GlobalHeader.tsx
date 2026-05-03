@@ -8,17 +8,19 @@ import { gGap } from '../../utils/Sizes';
 import { Moon, SunMedium, User } from 'lucide-react-native';
 import { useAppSelector } from '../../redux/hooks';
 import RNText from './RNText';
+import { useThemeColors } from '../../hooks/useThemeColors';
 
 const GlobalHeader = () => {
   const { top } = useSafeAreaInsets();
   const { colorScheme, toggleColorScheme } = useColorScheme();
+  const { colors } = useThemeColors();
   const isDark = colorScheme === 'dark';
   const { isAuthenticate } = useAppSelector(state => state.auth);
 
   return (
     <View
       style={{ paddingTop: top }}
-      className="border-b border-app-cardBorder bg-app-surface"
+      className="border-b border-primary bg-background"
     >
       <GlobalStatusBar />
       <View className="flex-row items-center justify-between px-5 pb-2">
@@ -37,12 +39,12 @@ const GlobalHeader = () => {
 
         <View className="flex-row items-center gap-3">
           {isAuthenticate ? (
-            <Pressable className="h-10 w-10 items-center justify-center border border-brand-primary  rounded-full  shadow-soft">
-              <User color={'#3b82f6'} size={22} />
+            <Pressable className="h-10 w-10 items-center justify-center border border-primary  rounded-full  shadow-soft">
+              <User color={colors.primary} size={22} />
             </Pressable>
           ) : (
-            <Pressable className="h-10 px-2 items-center justify-center border border-brand-primary  rounded-full  shadow-soft">
-              <RNText className="text-lg font-semibold text-brand-primary">
+            <Pressable className="h-10 px-2 items-center justify-center border border-primary  rounded-full  shadow-soft">
+              <RNText className="text-lg font-semibold text-primary">
                 Sign In
               </RNText>
             </Pressable>
@@ -50,12 +52,12 @@ const GlobalHeader = () => {
 
           <Pressable
             onPress={toggleColorScheme}
-            className="h-10 items-center justify-center rounded-full border border-brand-primary bg-app-surface p-3"
+            className="h-10 items-center justify-center rounded-full border border-primary p-3"
           >
             {isDark ? (
-              <SunMedium size={25} color="#3b82f6" />
+              <SunMedium size={25} color={colors.primary} />
             ) : (
-              <Moon size={25} color="#3b82f6" />
+              <Moon size={25} color={colors.primary} />
             )}
           </Pressable>
         </View>
