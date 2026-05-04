@@ -31,12 +31,9 @@ const ProfileInfoModal = ({
 
   useEffect(() => {
     execute();
-  }, [isVisible]);
-
-  console.log('allData', JSON.stringify(allData, null, 2));
+  }, []);
 
   const user = allData?.data;
-  console.log('user', JSON.stringify(user, null, 2));
 
   const handleLogout = () => {
     onClose();
