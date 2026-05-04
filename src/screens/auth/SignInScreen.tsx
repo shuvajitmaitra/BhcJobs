@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
   View,
@@ -15,11 +15,10 @@ import { z } from 'zod';
 import { UserRoundCheck, UserPlus } from 'lucide-react-native';
 import { useThemeColors } from '../../hooks/useThemeColors';
 import InputField from '../../components/common/InputField';
-import { showToast } from '../../utils/commonFunction';
-import { useApiCall } from '../../hooks/useApiCall';
-import { getUserInfo, signInUser } from '../../services/authService';
+import { handleApiError, showToast } from '../../utils/commonFunction';
+import { signInUser } from '../../services/authService';
 import { useAppDispatch } from '../../redux/hooks';
-import { setToken, setUser } from '../../redux/slices/authSlice';
+import { setToken } from '../../redux/slices/authSlice';
 import {
   NavigationProp,
   ParamListBase,
@@ -44,11 +43,7 @@ const SignInScreen = () => {
   const { isDark } = useThemeColors();
   const dispatch = useAppDispatch();
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
-
-  const { execute, loading: isLoading } = useApiCall(signInUser, data => {
-    dispatch(setToken(data.token));
-    data.token && navigation.navigate('Landing');
-  });
+  const [isLoading, setIsLoading] = useState(false);
 
   const gradient = isDark
     ? ['#253349', '#1C2A3A', '#0F1822', '#080E16']
@@ -58,6 +53,7 @@ const SignInScreen = () => {
     control,
     handleSubmit,
     formState: { errors, isValid },
+    setError,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: 'onChange',
@@ -65,7 +61,16 @@ const SignInScreen = () => {
   });
 
   const onSubmit = async (data: FormData) => {
-    execute(data);
+    setIsLoading(true);
+
+    const response = await signInUser(data);
+    if (response?.status) {
+      dispatch(setToken(response.data.token));
+      navigation.navigate('Landing');
+    } else {
+      handleApiError(response, setError);
+    }
+    setIsLoading(false);
   };
 
   const handleForgotPassword = () => {

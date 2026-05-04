@@ -2,11 +2,8 @@ import { useCallback, useState } from 'react';
 
 type ApiCallResult<T> = {
   data: T | null;
-  error: {
-    message: string;
-    status?: number;
-    data?: unknown;
-  } | null;
+  error: { message: string } | null;
+  status?: boolean;
 };
 
 export function useApiCall<T, P = void>(

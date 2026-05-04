@@ -4,10 +4,11 @@ import LandingScreen from '../screens/home/LandingScreen';
 import GlobalHeader from '../components/common/GlobalHeader';
 import SignInScreen from '../screens/auth/SignInScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
+import VerifyUserScreen from '../screens/auth/VerifyUserScreen';
 
 const Stack = createNativeStackNavigator();
-const renderHeader = () => {
-  return <GlobalHeader />;
+const renderHeader = (canBack?: boolean) => {
+  return <GlobalHeader canBack={canBack} />;
 };
 
 const RootStack = () => {
@@ -32,6 +33,13 @@ const RootStack = () => {
         component={SignUpScreen}
         options={{
           header: () => renderHeader(),
+        }}
+      />
+      <Stack.Screen
+        name="VerifyUser"
+        component={VerifyUserScreen}
+        options={{
+          header: () => renderHeader(true),
         }}
       />
     </Stack.Navigator>

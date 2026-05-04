@@ -28,7 +28,6 @@ const authSlice = createSlice({
       state.isAuthenticate = false;
     },
     setUser: (state, action: PayloadAction<TUserProfileApiResponse | null>) => {
-      console.log('action.payload', JSON.stringify(action.payload, null, 2));
       state.user = action.payload;
     },
     cleanUserData: state => {

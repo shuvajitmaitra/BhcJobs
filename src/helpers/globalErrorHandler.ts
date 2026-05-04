@@ -3,7 +3,8 @@ import { TErrorResponse } from '../types/commonTypes';
 
 type GlobalErrorResult = {
   message: string;
-  status?: number;
+  status?: boolean;
+  statusCode?: number;
   data?: TErrorResponse | unknown;
 };
 
@@ -14,13 +15,14 @@ export const globalErrorHandler = (error: unknown): GlobalErrorResult => {
       errorData?.message || error.message || 'An unknown error occurred';
 
     console.warn({
-      status: error.response?.status,
+      statusCode: error.response?.status,
       message,
       data: errorData,
     });
 
     return {
-      status: error.response?.status,
+      status: false,
+      statusCode: error.response?.status,
       message,
       data: errorData,
     };
@@ -29,9 +31,10 @@ export const globalErrorHandler = (error: unknown): GlobalErrorResult => {
   const fallbackMessage =
     error instanceof Error ? error.message : 'An unknown error occurred';
 
-  console.warn({ message: fallbackMessage, data: error });
+  console.warn({ message: fallbackMessage, data: error, status: false });
 
   return {
+    status: false,
     message: fallbackMessage,
     data: error,
   };

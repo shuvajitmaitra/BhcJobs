@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useApiCall } from '../../hooks/useApiCall';
 import { createUser } from '../../services/authService';
 import {
   NavigationProp,
@@ -20,24 +19,19 @@ import {
 import { TRegisterPayload } from '../../types/authTypes';
 import LinearGradient from 'react-native-linear-gradient';
 import { useThemeColors } from '../../hooks/useThemeColors';
-import { UserPlus, UserRoundCheck } from 'lucide-react-native';
 import InputField from '../../components/common/InputField';
-import DatePicker from 'react-native-date-picker';
 import DatePickerButton from '../../components/auth/DatePickerButton';
 import GenderSelectField from '../../components/auth/GenderSelectField';
+import { handleApiError } from '../../utils/commonFunction';
 
 const SignUpScreen = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
   const { isDark } = useThemeColors();
-
-  const { execute, loading: isLoading } = useApiCall(createUser, data => {
-    if (!data.error) {
-      navigation.navigate('VerifyUser');
-    }
-  });
+  const [isLoading, setIsLoading] = useState(false);
   const {
     handleSubmit,
     control,
+    setError,
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
@@ -53,8 +47,15 @@ const SignUpScreen = () => {
     },
   });
 
-  const onSubmit = (data: TRegisterPayload) => {
-    execute(data);
+  const onSubmit = async (data: TRegisterPayload) => {
+    setIsLoading(true);
+    const response = await createUser(data);
+    if (response?.status) {
+      navigation.navigate('VerifyUser', { phone: data.phone });
+    } else {
+      handleApiError(response, setError);
+    }
+    setIsLoading(false);
   };
   const gradient = isDark
     ? ['#253349', '#1C2A3A', '#0F1822', '#080E16']
@@ -172,7 +173,7 @@ const SignUpScreen = () => {
               <Controller
                 name="gender"
                 control={control}
-                render={({ field: { onChange, value } }) => (
+                render={({ field: { onChange } }) => (
                   <GenderSelectField
                     onGenderChange={onChange}
                     error={!!errors.gender}

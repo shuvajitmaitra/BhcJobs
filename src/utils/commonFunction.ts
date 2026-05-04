@@ -55,6 +55,19 @@ export const showToast = ({
     position: 'bottom',
   });
 };
+export const handleApiError = (
+  response: { message?: string; error?: Record<string, string[]> } | undefined,
+  setError?: (name: any, error: { message: string }) => void,
+) => {
+  if (response?.error && setError) {
+    Object.entries(response.error).forEach(([field, msgs]) => {
+      setError(field, { message: msgs[0] });
+    });
+  } else {
+    showToast({ title: response?.message || 'Something went wrong' });
+  }
+};
+
 export const formatCurrencyCodeAmount = (
   amount: number,
   currency: string,
@@ -101,7 +114,6 @@ export const convertCurrencyAmount = ({
 };
 
 export const getDeadlineText = (expiry?: string) => {
-  console.log('expiry', JSON.stringify(expiry, null, 2));
   if (!expiry) {
     return 'Not specified';
   }

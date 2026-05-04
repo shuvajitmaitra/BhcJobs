@@ -2,6 +2,7 @@ export type TResponse<T> = {
   status: boolean;
   message?: string;
   data: T;
+  error?: Record<string, string[]>;
 };
 
 export type TErrorResponse = {
@@ -10,6 +11,7 @@ export type TErrorResponse = {
   file: string;
   line: number;
   trace: TraceItem[];
+  status: false;
 };
 
 export type TraceItem = {
@@ -19,6 +21,3 @@ export type TraceItem = {
   class?: string;
   type?: '->' | '::';
 };
-
-
-

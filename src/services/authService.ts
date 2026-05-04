@@ -3,7 +3,6 @@ import { API_ENDPOINTS } from '../redux/api';
 import {
   TLogin,
   TRegisterPayload,
-  TUserProfile,
   TUserProfileApiResponse,
   TVerifyPayload,
 } from '../types/authTypes';
@@ -14,33 +13,17 @@ type SignInPayload = {
   phone: string;
   password: string;
 };
-
-export async function signInUser(payload: SignInPayload): Promise<{
-  data: TLogin | null;
-  error: {
-    message: string;
-    status?: number;
-    data?: unknown;
-  } | null;
-}> {
+export const signInUser = async (payload: SignInPayload) => {
   try {
     const response = await instance.post<TResponse<TLogin>>(
       API_ENDPOINTS.login,
       payload,
     );
-
-    return {
-      data: response.data.data,
-      error: null,
-    };
+    return response.data;
   } catch (error) {
-    return {
-      data: null,
-      error: globalErrorHandler(error),
-    };
+    globalErrorHandler(error);
   }
-}
-
+};
 export const getUserInfo = async () => {
   try {
     const response = await instance.get<TUserProfileApiResponse>(
@@ -62,28 +45,16 @@ export const getUserInfo = async () => {
 export const createUser = async (payload: TRegisterPayload) => {
   try {
     const response = await instance.post(API_ENDPOINTS.register, payload);
-    return {
-      data: response.data.data,
-      error: null,
-    };
+    return response.data;
   } catch (error) {
-    return {
-      data: null,
-      error: globalErrorHandler(error),
-    };
+    globalErrorHandler(error);
   }
 };
 export const verifyPhone = async (payload: TVerifyPayload) => {
   try {
     const response = await instance.post(API_ENDPOINTS.verifyUser, payload);
-    return {
-      data: response.data.data,
-      error: null,
-    };
+    return response.data;
   } catch (error) {
-    return {
-      data: null,
-      error: globalErrorHandler(error),
-    };
+    globalErrorHandler(error);
   }
 };
