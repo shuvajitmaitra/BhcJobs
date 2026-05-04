@@ -6,11 +6,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-explicit-any': 0,
     'react-native/no-inline-styles': 0,
-
-    // ❌ disable default
     'no-unused-vars': 'off',
-
-    // ✅ enable TS rule
     '@typescript-eslint/no-unused-vars': [
       'warn',
       {
