@@ -24,6 +24,22 @@ export const signInUser = async (payload: SignInPayload) => {
     globalErrorHandler(error);
   }
 };
+export const createUser = async (payload: TRegisterPayload) => {
+  try {
+    const response = await instance.post(API_ENDPOINTS.register, payload);
+    return response.data;
+  } catch (error) {
+    globalErrorHandler(error);
+  }
+};
+export const verifyPhone = async (payload: TVerifyPayload) => {
+  try {
+    const response = await instance.post(API_ENDPOINTS.verifyUser, payload);
+    return response.data;
+  } catch (error) {
+    globalErrorHandler(error);
+  }
+};
 export const getUserInfo = async () => {
   try {
     const response = await instance.get<TUserProfileApiResponse>(
@@ -39,22 +55,5 @@ export const getUserInfo = async () => {
       data: null,
       error: globalErrorHandler(error),
     };
-  }
-};
-
-export const createUser = async (payload: TRegisterPayload) => {
-  try {
-    const response = await instance.post(API_ENDPOINTS.register, payload);
-    return response.data;
-  } catch (error) {
-    globalErrorHandler(error);
-  }
-};
-export const verifyPhone = async (payload: TVerifyPayload) => {
-  try {
-    const response = await instance.post(API_ENDPOINTS.verifyUser, payload);
-    return response.data;
-  } catch (error) {
-    globalErrorHandler(error);
   }
 };
