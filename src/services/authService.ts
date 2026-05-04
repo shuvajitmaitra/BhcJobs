@@ -1,6 +1,10 @@
 import { globalErrorHandler } from '../helpers/globalErrorHandler';
 import { API_ENDPOINTS } from '../redux/api';
-import { TLogin } from '../types/authTypes';
+import {
+  TLogin,
+  TUserProfile,
+  TUserProfileApiResponse,
+} from '../types/authTypes';
 import { TResponse } from '../types/commonTypes';
 import { instance } from './axios/axiosInstance';
 
@@ -34,3 +38,21 @@ export async function signInUser(payload: SignInPayload): Promise<{
     };
   }
 }
+
+export const getUserInfo = async () => {
+  try {
+    const response = await instance.get<TUserProfileApiResponse>(
+      API_ENDPOINTS.getUser,
+    );
+
+    return {
+      data: response.data,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: globalErrorHandler(error),
+    };
+  }
+};

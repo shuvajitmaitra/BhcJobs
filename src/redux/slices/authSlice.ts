@@ -1,15 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export type AuthUser = {
-  id?: number | string;
-  name?: string;
-  email?: string;
-  [key: string]: unknown;
-};
+import { TUserProfileApiResponse } from '../../types/authTypes';
 
 type AuthState = {
   token: string | null;
-  user: AuthUser | null;
+  user: TUserProfileApiResponse | null;
   isAuthenticate: boolean;
   theme: 'light' | 'dark';
 };
@@ -33,22 +27,27 @@ const authSlice = createSlice({
       state.token = null;
       state.isAuthenticate = false;
     },
-    setUser: (state, action: PayloadAction<AuthUser | null>) => {
+    setUser: (state, action: PayloadAction<TUserProfileApiResponse | null>) => {
+      console.log('action.payload', JSON.stringify(action.payload, null, 2));
       state.user = action.payload;
+    },
+    cleanUserData: state => {
+      state.user = null;
+      state.token = null;
+      state.isAuthenticate = false;
     },
     toggleLocalTheme: state => {
       state.theme = state.theme === 'dark' ? 'light' : 'dark';
     },
-    updateUser: (state, action: PayloadAction<Partial<AuthUser>>) => {
-      state.user = {
-        ...(state.user ?? {}),
-        ...action.payload,
-      };
-    },
   },
 });
 
-export const { setToken, removeToken, setUser, updateUser, toggleLocalTheme } =
-  authSlice.actions;
+export const {
+  setToken,
+  removeToken,
+  setUser,
+  toggleLocalTheme,
+  cleanUserData,
+} = authSlice.actions;
 
 export default authSlice.reducer;

@@ -17,9 +17,9 @@ import { useThemeColors } from '../../hooks/useThemeColors';
 import InputField from '../../components/common/InputField';
 import { showToast } from '../../utils/commonFunction';
 import { useApiCall } from '../../hooks/useApiCall';
-import { signInUser } from '../../services/authService';
+import { getUserInfo, signInUser } from '../../services/authService';
 import { useAppDispatch } from '../../redux/hooks';
-import { setToken } from '../../redux/slices/authSlice';
+import { setToken, setUser } from '../../redux/slices/authSlice';
 import {
   NavigationProp,
   ParamListBase,
@@ -29,9 +29,8 @@ import {
 const schema = z.object({
   phone: z
     .string()
-    .min(1, 'Phone number is required')
-    .regex(/^01[0-9]{9}$/, 'Invalid phone number format (01XXXXXXXXX)')
-    .length(11, 'Phone number must be 11 digits'),
+    .min(10, 'Phone number is required')
+    .max(13, 'Phone number can be 13 digits max'),
   password: z
     .string()
     .min(6, 'Password must be at least 6 characters')
@@ -47,7 +46,7 @@ const SignInScreen = () => {
 
   const { execute, loading: isLoading } = useApiCall(signInUser, data => {
     dispatch(setToken(data.token));
-    data.token &&navigation.navigate('Landing');
+    data.token && navigation.navigate('Landing');
   });
 
   const gradient = isDark
@@ -61,7 +60,7 @@ const SignInScreen = () => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: 'onChange',
-    defaultValues: { phone: '', password: '' },
+    defaultValues: { phone: '01949887896', password: 'Shuvajit#1' },
   });
 
   const onSubmit = async (data: FormData) => {
@@ -91,11 +90,8 @@ const SignInScreen = () => {
         keyboardShouldPersistTaps="handled"
         contentContainerClassName="flex-1 flex-grow justify-center items-center py-10 px-6"
       >
-        {/* ── White Card ── */}
         <View className="bg-card w-full rounded-3xl p-7 border border-border ">
-          {/* ── Header: Avatar Icon + Title ── */}
           <View className="flex-row items-center justify-center mb-8 gap-x-3">
-            {/* Light blue circle background for icon */}
             <View className="bg-primary/10 rounded-full w-12 h-12 items-center justify-center">
               <UserRoundCheck size={26} color="#2563EB" />
             </View>
@@ -104,7 +100,6 @@ const SignInScreen = () => {
             </Text>
           </View>
 
-          {/* ── Mobile Number Field ── */}
           <View className="mb-5">
             <Text className="text-sm font-medium text-foreground mb-2">
               Mobile Number
@@ -118,7 +113,7 @@ const SignInScreen = () => {
                   type="phone"
                   value={value}
                   onChangeText={(text: string) => {
-                    const filtered = text.replace(/[^0-9]/g, '').slice(0, 11);
+                    const filtered = text.replace(/[^0-9]/g, '').slice(0, 13);
                     onChange(filtered);
                   }}
                   placeholder="01XXXXXXXXX"
@@ -134,7 +129,6 @@ const SignInScreen = () => {
             )}
           </View>
 
-          {/* ── Password Field ── */}
           <View className="mb-3">
             <Text className="text-sm font-medium text-foreground mb-2">
               Password
@@ -161,7 +155,6 @@ const SignInScreen = () => {
             )}
           </View>
 
-          {/* ── Forgot Password ── */}
           <TouchableOpacity
             className="self-end mb-6"
             onPress={handleForgotPassword}
@@ -171,7 +164,6 @@ const SignInScreen = () => {
             </Text>
           </TouchableOpacity>
 
-          {/* ── SIGN IN Button ── */}
           <TouchableOpacity
             className={`bg-primary rounded-2xl py-4 items-center justify-center mb-5 ${
               !isValid || isLoading ? 'opacity-50' : ''
@@ -191,7 +183,6 @@ const SignInScreen = () => {
             )}
           </TouchableOpacity>
 
-          {/* ── Divider ── */}
           <View className="flex-row items-center mb-5">
             <View className="flex-1 h-px bg-border" />
             <Text className="mx-4 text-muted-foreground text-sm font-semibold">
@@ -200,7 +191,6 @@ const SignInScreen = () => {
             <View className="flex-1 h-px bg-border" />
           </View>
 
-          {/* ── Create Account ── */}
           <TouchableOpacity
             className="flex-row items-center justify-center"
             onPress={handleCreateAccount}
