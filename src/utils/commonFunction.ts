@@ -118,3 +118,36 @@ export const getDeadlineText = (expiry?: string) => {
     year: 'numeric',
   }).format(date);
 };
+
+type FormattedDates = {
+  display: string;
+  short: string;
+};
+
+export const formatDate = (date: Date | string): FormattedDates => {
+  const d =
+    typeof date === 'string' ? new Date(date + 'T00:00:00') : new Date(date);
+
+  const day = String(d.getDate()).padStart(2, '0');
+  const year = d.getFullYear();
+
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+
+  return {
+    display: `${day} ${months[d.getMonth()]} ${year}`,
+    short: `${day} ${months[d.getMonth()]} ${year}`,
+  };
+};

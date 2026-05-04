@@ -4,4 +4,6 @@ export const API_ENDPOINTS = {
   companies: '/api/company/get',
   login: '/api/job_seeker/login',
   getUser: '/api/job_seeker/dashboard/get',
+  register: '/api/job_seeker/register',
+  verifyUser: '/api/job_seeker/phone_verify',
 } as const;

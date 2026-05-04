@@ -2,8 +2,10 @@ import { globalErrorHandler } from '../helpers/globalErrorHandler';
 import { API_ENDPOINTS } from '../redux/api';
 import {
   TLogin,
+  TRegisterPayload,
   TUserProfile,
   TUserProfileApiResponse,
+  TVerifyPayload,
 } from '../types/authTypes';
 import { TResponse } from '../types/commonTypes';
 import { instance } from './axios/axiosInstance';
@@ -47,6 +49,35 @@ export const getUserInfo = async () => {
 
     return {
       data: response.data,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: globalErrorHandler(error),
+    };
+  }
+};
+
+export const createUser = async (payload: TRegisterPayload) => {
+  try {
+    const response = await instance.post(API_ENDPOINTS.register, payload);
+    return {
+      data: response.data.data,
+      error: null,
+    };
+  } catch (error) {
+    return {
+      data: null,
+      error: globalErrorHandler(error),
+    };
+  }
+};
+export const verifyPhone = async (payload: TVerifyPayload) => {
+  try {
+    const response = await instance.post(API_ENDPOINTS.verifyUser, payload);
+    return {
+      data: response.data.data,
       error: null,
     };
   } catch (error) {

@@ -1,3 +1,32 @@
+export type TRegisterPayload = {
+  name: string;
+  phone: string;
+  email: string;
+  password: string;
+  confirm_password: string;
+  nid: string;
+  dob: Date;
+  passport_number: string;
+  gender: string;
+};
+export type TRegisterSuccessResponse = {
+  id: number;
+  phone: string;
+  email: string;
+};
+
+export type TVerifyPayload = {
+  phone: string;
+  otp: string;
+};
+export type TVerifySuccessResponse = {
+  token: string;
+  user_id: number;
+  phone: string;
+  email: string;
+  name: string;
+};
+
 export type TLogin = {
   token: string;
 };

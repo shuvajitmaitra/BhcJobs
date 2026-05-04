@@ -14,6 +14,7 @@ import RNText from '../common/RNText';
 import { cleanUserData, setUser } from '../../redux/slices/authSlice';
 import { useApiCall } from '../../hooks/useApiCall';
 import { getUserInfo } from '../../services/authService';
+import { useThemeColors } from '../../hooks/useThemeColors';
 
 const ProfileInfoModal = ({
   isVisible,
@@ -23,8 +24,8 @@ const ProfileInfoModal = ({
   onClose: () => void;
 }) => {
   const dispatch = useAppDispatch();
+  const { colors } = useThemeColors();
   const { execute } = useApiCall(getUserInfo, data => {
-    console.log('data', JSON.stringify(data, null, 2));
     dispatch(setUser(data));
   });
   const { user: allData } = useAppSelector(state => state.auth);
@@ -52,7 +53,7 @@ const ProfileInfoModal = ({
                 </Text>
 
                 <TouchableOpacity onPress={onClose}>
-                  <X size={22} className="text-muted-foreground" />
+                  <X size={22} color={colors.foreground} />
                 </TouchableOpacity>
               </View>
 

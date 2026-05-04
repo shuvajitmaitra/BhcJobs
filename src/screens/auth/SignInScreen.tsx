@@ -23,6 +23,7 @@ import { setToken, setUser } from '../../redux/slices/authSlice';
 import {
   NavigationProp,
   ParamListBase,
+  StackActions,
   useNavigation,
 } from '@react-navigation/native';
 
@@ -72,7 +73,7 @@ const SignInScreen = () => {
   };
 
   const handleCreateAccount = () => {
-    // navigation.navigate('Register');
+    navigation.dispatch(StackActions.replace('SignUp'));
   };
 
   return (
@@ -90,8 +91,8 @@ const SignInScreen = () => {
         keyboardShouldPersistTaps="handled"
         contentContainerClassName="flex-1 flex-grow justify-center items-center py-10 px-6"
       >
-        <View className="bg-card w-full rounded-3xl p-7 border border-border ">
-          <View className="flex-row items-center justify-center mb-8 gap-x-3">
+        <View className="bg-card w-full rounded-3xl p-7 border border-border gap-4">
+          <View className="flex-row items-center justify-center mb-4 gap-x-3">
             <View className="bg-primary/10 rounded-full w-12 h-12 items-center justify-center">
               <UserRoundCheck size={26} color="#2563EB" />
             </View>
@@ -100,65 +101,44 @@ const SignInScreen = () => {
             </Text>
           </View>
 
-          <View className="mb-5">
-            <Text className="text-sm font-medium text-foreground mb-2">
-              Mobile Number
-            </Text>
-
-            <Controller
-              name="phone"
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <InputField
-                  type="phone"
-                  value={value}
-                  onChangeText={(text: string) => {
-                    const filtered = text.replace(/[^0-9]/g, '').slice(0, 13);
-                    onChange(filtered);
-                  }}
-                  placeholder="01XXXXXXXXX"
-                  error={!!errors.phone}
-                />
-              )}
-            />
-
-            {errors.phone && (
-              <Text className="text-destructive text-xs mt-1 ml-0.5">
-                {errors.phone.message}
-              </Text>
+          <Controller
+            name="phone"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <InputField
+                type="phone"
+                value={value}
+                onChangeText={(text: string) => {
+                  const filtered = text.replace(/[^0-9]/g, '').slice(0, 13);
+                  onChange(filtered);
+                }}
+                placeholder="01XXXXXXXXX"
+                error={!!errors.phone}
+                errorMessage={errors.phone?.message}
+                isRequired={true}
+                label="Mobile Number"
+              />
             )}
-          </View>
+          />
 
-          <View className="mb-3">
-            <Text className="text-sm font-medium text-foreground mb-2">
-              Password
-            </Text>
-
-            <Controller
-              name="password"
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <InputField
-                  type="password"
-                  value={value}
-                  onChangeText={onChange}
-                  placeholder="Enter password"
-                  error={errors.password?.message}
-                />
-              )}
-            />
-
-            {errors.password && (
-              <Text className="text-destructive text-xs mt-1 ml-0.5">
-                {errors.password.message}
-              </Text>
+          <Controller
+            name="password"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <InputField
+                type="password"
+                value={value}
+                onChangeText={onChange}
+                placeholder="Enter password"
+                errorMessage={errors.password?.message}
+                error={!!errors.password}
+                isRequired={true}
+                label="Password"
+              />
             )}
-          </View>
+          />
 
-          <TouchableOpacity
-            className="self-end mb-6"
-            onPress={handleForgotPassword}
-          >
+          <TouchableOpacity className="self-end" onPress={handleForgotPassword}>
             <Text className="text-primary text-sm font-semibold">
               Forgot Your Password?
             </Text>
