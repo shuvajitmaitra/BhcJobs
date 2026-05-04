@@ -152,10 +152,7 @@ const VerifyUserScreen = () => {
             type="numeric"
             secureTextEntry={false}
             focusStickBlinkingDuration={500}
-            onFocus={() => console.log('Focused')}
-            onBlur={() => console.log('Blurred')}
-            onTextChange={text => console.log(text)}
-            onFilled={text => console.log(`OTP is ${text}`)}
+            onTextChange={text => setOtp(text.trim())}
             textInputProps={{
               accessibilityLabel: 'One-Time Password',
             }}

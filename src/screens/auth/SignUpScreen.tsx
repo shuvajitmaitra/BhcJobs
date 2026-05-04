@@ -122,6 +122,24 @@ const SignUpScreen = () => {
                 />
               )}
             />
+            <Controller
+              name="email"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <InputField
+                  type="email"
+                  value={value}
+                  onChangeText={(text: string) => {
+                    onChange(text.trim());
+                  }}
+                  placeholder="enter email"
+                  errorMessage={errors.email?.message}
+                  isRequired={true}
+                  error={!!errors.email}
+                  label="Email"
+                />
+              )}
+            />
             <View className="">
               <Text className="text-sm font-medium text-foreground mb-2">
                 Date of Birth <Text className="text-destructive">*</Text>
