@@ -22,7 +22,7 @@ import { useThemeColors } from '../../hooks/useThemeColors';
 import InputField from '../../components/common/InputField';
 import DatePickerButton from '../../components/auth/DatePickerButton';
 import GenderSelectField from '../../components/auth/GenderSelectField';
-import { handleApiError } from '../../utils/commonFunction';
+import { formatDate, handleApiError } from '../../utils/commonFunction';
 
 const SignUpScreen = () => {
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
@@ -150,7 +150,9 @@ const SignUpScreen = () => {
                   <DatePickerButton
                     value={value}
                     onDateChange={(date: Date) => {
-                      onChange(date);
+const fDate = formatDate(date).short
+console.log('fDate', JSON.stringify(fDate, null, 2))
+                      onChange(fDate);
                     }}
                     error={!!errors.dob}
                   />

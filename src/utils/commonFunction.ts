@@ -137,29 +137,30 @@ type FormattedDates = {
 };
 
 export const formatDate = (date: Date | string): FormattedDates => {
-  const d =
-    typeof date === 'string' ? new Date(date + 'T00:00:00') : new Date(date);
+  let d: Date;
+
+  if (typeof date === 'string') {
+    if (date.includes('T')) {
+      d = new Date(date);
+    } else {
+      const [year, month, day] = date.split('-').map(Number);
+      d = new Date(year, month - 1, day);
+    }
+  } else {
+    d = new Date(date);
+  }
 
   const day = String(d.getDate()).padStart(2, '0');
+  const monthNumber = String(d.getMonth() + 1).padStart(2, '0');
   const year = d.getFullYear();
 
   const months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
   ];
 
   return {
-    display: `${day} ${months[d.getMonth()]} ${year}`,
-    short: `${day} ${months[d.getMonth()]} ${year}`,
+    display: `${day} ${months[d.getMonth()]} ${year}`, // 25 Mar 1999
+    short: `${year}-${monthNumber}-${day}`,            // 1999-03-25 ✅
   };
 };
