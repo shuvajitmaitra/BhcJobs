@@ -23,18 +23,6 @@ pnpm install
 ```
 ---
 
-## Environment Configuration
-
-The API environment is controlled in [env.ts](env.ts). By default it points to production:
-
-```ts
-export const ENV: 'production' | 'local' = 'production';
-```
-
-To develop against a local backend, change `'production'` to `'local'` and make sure your local server is running on `http://localhost:5001`.
-
----
-
 ## Run the App
 
 ### Start the Expo dev server
