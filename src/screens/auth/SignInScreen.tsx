@@ -10,7 +10,7 @@ import {
   Platform,
   ActivityIndicator,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 import { z } from 'zod';
 import { UserRoundCheck, UserPlus } from 'lucide-react-native';
 import { useThemeColors } from '../../hooks/useThemeColors';
@@ -46,8 +46,8 @@ const SignInScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const gradient = isDark
-    ? ['#253349', '#1C2A3A', '#0F1822', '#080E16']
-    : ['#7aa8ea', '#b3cef3', '#edf5fe', '#e8f5fc'];
+    ? (['#253349', '#1C2A3A', '#0F1822', '#080E16'] as const)
+    : (['#7aa8ea', '#b3cef3', '#edf5fe', '#e8f5fc'] as const);
 
   const {
     control,
@@ -57,7 +57,7 @@ const SignInScreen = () => {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: 'onChange',
-    defaultValues: { phone: '01949887896', password: 'Shuvajit#1' },
+    defaultValues: { phone: '', password: '' },
   });
 
   const onSubmit = async (data: FormData) => {
@@ -84,8 +84,7 @@ const SignInScreen = () => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      className="flex-1 bg-background"
-    >
+      className="flex-1 bg-background">
       <LinearGradient
         colors={gradient}
         start={{ x: 0, y: 0 }}
@@ -94,16 +93,13 @@ const SignInScreen = () => {
       />
       <ScrollView
         keyboardShouldPersistTaps="handled"
-        contentContainerClassName="flex-1 flex-grow justify-center items-center py-10 px-6"
-      >
-        <View className="bg-card w-full rounded-3xl p-7 border border-border gap-4">
-          <View className="flex-row items-center justify-center mb-4 gap-x-3">
-            <View className="bg-primary/10 rounded-full w-12 h-12 items-center justify-center">
+        contentContainerClassName="flex-1 flex-grow justify-center items-center py-10 px-6">
+        <View className="w-full gap-4 rounded-3xl border border-border bg-card p-7">
+          <View className="mb-4 flex-row items-center justify-center gap-x-3">
+            <View className="bg-primary/10 h-12 w-12 items-center justify-center rounded-full">
               <UserRoundCheck size={26} color="#2563EB" />
             </View>
-            <Text className="text-2xl font-bold text-primary tracking-tight">
-              Job Seeker Login
-            </Text>
+            <Text className="text-2xl font-bold tracking-tight text-primary">Job Seeker Login</Text>
           </View>
 
           <Controller
@@ -144,50 +140,40 @@ const SignInScreen = () => {
           />
 
           <TouchableOpacity className="self-end" onPress={handleForgotPassword}>
-            <Text className="text-primary text-sm font-semibold">
-              Forgot Your Password?
-            </Text>
+            <Text className="text-sm font-semibold text-primary">Forgot Your Password?</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            className={`bg-primary rounded-2xl py-4 items-center justify-center mb-5 ${
+            className={`mb-5 items-center justify-center rounded-2xl bg-primary py-4 ${
               !isValid || isLoading ? 'opacity-50' : ''
             }`}
             onPress={handleSubmit(onSubmit)}
             disabled={!isValid || isLoading}
-            activeOpacity={0.85}
-          >
+            activeOpacity={0.85}>
             {isLoading ? (
               <ActivityIndicator color="#FFFFFF" size="small" />
             ) : (
               <View className="flex-row items-center gap-x-2">
-                <Text className="text-primary-foreground text-lg font-bold tracking-widest">
+                <Text className="text-lg font-bold tracking-widest text-primary-foreground">
                   SIGN IN
                 </Text>
               </View>
             )}
           </TouchableOpacity>
 
-          <View className="flex-row items-center mb-5">
-            <View className="flex-1 h-px bg-border" />
-            <Text className="mx-4 text-muted-foreground text-sm font-semibold">
-              OR
-            </Text>
-            <View className="flex-1 h-px bg-border" />
+          <View className="mb-5 flex-row items-center">
+            <View className="h-px flex-1 bg-border" />
+            <Text className="mx-4 text-sm font-semibold text-muted-foreground">OR</Text>
+            <View className="h-px flex-1 bg-border" />
           </View>
 
           <TouchableOpacity
             className="flex-row items-center justify-center"
             onPress={handleCreateAccount}
-            activeOpacity={0.8}
-          >
-            <Text className="text-foreground text-base">
-              New to BhcJobs.com?{'  '}
-            </Text>
+            activeOpacity={0.8}>
+            <Text className="text-base text-foreground">New to BhcJobs.com?{'  '}</Text>
             <View className="flex-row items-center gap-x-1">
-              <Text className="text-primary text-base font-bold">
-                Create an account
-              </Text>
+              <Text className="text-base font-bold text-primary">Create an account</Text>
               <UserPlus size={15} color="#2563EB" />
             </View>
           </TouchableOpacity>

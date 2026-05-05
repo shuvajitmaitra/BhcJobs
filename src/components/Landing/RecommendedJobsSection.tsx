@@ -24,7 +24,7 @@ const DEFAULT_VISIBLE_ITEMS = 4;
 const RecommendedJobsSection = () => {
   const dispatch = useAppDispatch();
   const jobs = useAppSelector(state => state.job.jobs);
-  const [expanded, setExpanded] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(DEFAULT_VISIBLE_ITEMS);
 
   const locale = getDeviceLocale();
   const localCurrency = getCurrencyCodeFromLocale(locale);
@@ -39,7 +39,7 @@ const RecommendedJobsSection = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const visibleJobs = expanded ? jobs : jobs.slice(0, DEFAULT_VISIBLE_ITEMS);
+  const visibleJobs = jobs.slice(0, visibleCount);
 
   if (error) {
     return null;
@@ -99,9 +99,15 @@ const RecommendedJobsSection = () => {
         showsVerticalScrollIndicator={false}
       />
       <SeeMoreButton
-        expanded={expanded}
+        expanded={visibleCount >= jobs.length}
         hidden={jobs.length <= DEFAULT_VISIBLE_ITEMS}
-        onPress={() => setExpanded(current => !current)}
+        onPress={() =>
+          setVisibleCount(current =>
+            current >= jobs.length
+              ? DEFAULT_VISIBLE_ITEMS
+              : Math.min(current + DEFAULT_VISIBLE_ITEMS, jobs.length),
+          )
+        }
       />
     </View>
   );

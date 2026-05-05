@@ -1,36 +1,27 @@
-import { Image, Pressable, TouchableOpacity, View } from 'react-native';
+import { Image, Pressable, View } from 'react-native';
 import React, { useState } from 'react';
 import GlobalStatusBar from './GlobalStatusBar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Images from '../../utils/Images';
-import { useColorScheme } from 'nativewind';
 import { gGap } from '../../utils/Sizes';
 import { ArrowLeft, Moon, SunMedium, User } from 'lucide-react-native';
 import { useAppSelector } from '../../redux/hooks';
 import RNText from './RNText';
 import { useThemeColors } from '../../hooks/useThemeColors';
-import {
-  useNavigation,
-  NavigationProp,
-  ParamListBase,
-} from '@react-navigation/native';
+import { useNavigation, NavigationProp, ParamListBase } from '@react-navigation/native';
 import ProfileInfoModal from '../auth/ProfileInfoModal';
+import * as Haptics from 'expo-haptics';
 
 const GlobalHeader = ({ canBack }: { canBack?: boolean }) => {
   const { top } = useSafeAreaInsets();
-  const { colorScheme, toggleColorScheme } = useColorScheme();
-  const { colors } = useThemeColors();
-  const isDark = colorScheme === 'dark';
-  const { isAuthenticate } = useAppSelector(state => state.auth);
+  const { colors, isDark, toggleColorScheme } = useThemeColors();
+  const { isAuthenticate } = useAppSelector((state) => state.auth);
   const navigation = useNavigation<NavigationProp<ParamListBase>>();
 
   const [infoModalVisible, setInfoModalVisible] = useState(false);
 
   return (
-    <View
-      style={{ paddingTop: top }}
-      className="border-b border-border bg-background"
-    >
+    <View style={{ paddingTop: top }} className="border-b border-border bg-background">
       <GlobalStatusBar />
       {infoModalVisible && (
         <ProfileInfoModal
@@ -43,21 +34,20 @@ const GlobalHeader = ({ canBack }: { canBack?: boolean }) => {
       <View className="flex-row items-center justify-between px-5 pb-2">
         <View className="flex-row items-center">
           {canBack && (
-            <TouchableOpacity
+            <Pressable
               onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
                 navigation.goBack();
               }}
-              className="h-10 w-10 justify-center items-start"
-            >
+              className="h-10 w-10 items-start justify-center">
               <ArrowLeft size={30} color={colors.foreground} />
-            </TouchableOpacity>
+            </Pressable>
           )}
           <Pressable
             onPress={() => {
               navigation.navigate('Landing');
             }}
-            className="items-start justify-center"
-          >
+            className="items-start justify-center">
             <Image
               source={{
                 uri: isDark ? Images.LOGO_NIGHT_MODE : Images.LOGO_DAY_MODE,
@@ -73,37 +63,36 @@ const GlobalHeader = ({ canBack }: { canBack?: boolean }) => {
 
         <View className="flex-row items-center gap-3">
           {isAuthenticate ? (
-            <TouchableOpacity
+            <Pressable
               onPress={() => {
                 setInfoModalVisible(!infoModalVisible);
               }}
-              className="h-10 w-10 items-center justify-center border border-primary  rounded-full  shadow-soft"
-            >
+              className="shadow-soft h-10 w-10 items-center justify-center rounded-full  border  border-primary">
               <User color={colors.primary} size={22} />
-            </TouchableOpacity>
+            </Pressable>
           ) : (
-            <TouchableOpacity
+            <Pressable
               onPress={() => {
                 navigation.navigate('SignIn');
               }}
-              className="h-10 px-2 items-center justify-center border border-primary  rounded-full  shadow-soft"
-            >
-              <RNText className="text-lg font-semibold text-primary">
-                Sign In
-              </RNText>
-            </TouchableOpacity>
+              className="shadow-soft h-10 items-center justify-center rounded-full border  border-primary  px-2">
+              <RNText className="text-lg font-semibold text-primary">Sign In</RNText>
+            </Pressable>
           )}
 
-          <TouchableOpacity
-            onPress={toggleColorScheme}
-            className="h-10 items-center justify-center rounded-full border border-primary p-3"
-          >
+          <Pressable
+            onPress={() => {
+              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Soft);
+
+              toggleColorScheme();
+            }}
+            className="h-10 items-center justify-center rounded-full border border-primary p-3">
             {isDark ? (
               <SunMedium size={25} color={colors.primary} />
             ) : (
               <Moon size={25} color={colors.primary} />
             )}
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </View>
     </View>

@@ -1,11 +1,10 @@
-import { StatusBar } from 'react-native';
 import React from 'react';
-import { useColorScheme } from 'nativewind';
+import { StatusBar } from 'expo-status-bar';
+import { useAppSelector } from '../../redux/hooks';
 
 const GlobalStatusBar = () => {
-  const { colorScheme } = useColorScheme();
-  const isDark = colorScheme === 'dark' ? true : false;
-  return <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />;
+  const theme = useAppSelector((state) => state.auth.theme);
+  return <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />;
 };
 
 export default GlobalStatusBar;

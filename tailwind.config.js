@@ -1,7 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  content: [
+    './App.{js,ts,tsx}',
+    './src/**/*.{js,ts,tsx}',
+    './components/**/*.{js,ts,tsx}',
+  ],
   darkMode: 'class',
-  content: ['./App.tsx', './src/**/*.{js,jsx,ts,tsx}'],
   presets: [require('nativewind/preset')],
   theme: {
     extend: {
@@ -39,30 +43,6 @@ module.exports = {
         border: 'var(--border)',
         input: 'var(--input)',
         ring: 'var(--ring)',
-        brand: {
-          primary: 'var(--primary)',
-          secondary: 'var(--secondary)',
-          accent: 'var(--accent)',
-        },
-        app: {
-          bg: 'var(--background)',
-          bgAlt: 'var(--muted)',
-          surface: 'var(--card)',
-          surfaceMuted: 'var(--accent)',
-          card: 'var(--card)',
-          cardBorder: 'var(--border)',
-          text: 'var(--foreground)',
-          textMuted: 'var(--muted-foreground)',
-          textSoft: 'var(--secondary-foreground)',
-          heroFrom: 'var(--primary)',
-          heroTo: 'var(--ring)',
-          shadow: 'var(--foreground)',
-        },
-      },
-      boxShadow: {
-        soft: '0 12px 30px rgba(29, 53, 87, 0.12)',
-        card: '0 10px 24px rgba(15, 23, 42, 0.12)',
-        dark: '0 16px 30px rgba(0, 0, 0, 0.35)',
       },
     },
   },

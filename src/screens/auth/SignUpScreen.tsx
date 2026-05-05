@@ -17,7 +17,7 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import { TRegisterPayload } from '../../types/authTypes';
-import LinearGradient from 'react-native-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useThemeColors } from '../../hooks/useThemeColors';
 import InputField from '../../components/common/InputField';
 import DatePickerButton from '../../components/auth/DatePickerButton';
@@ -35,15 +35,15 @@ const SignUpScreen = () => {
     formState: { errors, isValid },
   } = useForm({
     defaultValues: {
-      name: 'Shuvajit Maitra',
-      phone: '01949887896',
-      email: 'shuvajitmaitra@gmail.com',
-      password: 'Shuvajit#1',
-      confirm_password: 'Shuvajit#1',
+      name: '',
+      phone: '',
+      email: '',
+      password: '',
+      confirm_password: '',
       nid: '',
       dob: new Date(),
-      passport_number: 'A12345697',
-      gender: 'Male',
+      passport_number: '',
+      gender: '',
     },
   });
 
@@ -58,16 +58,15 @@ const SignUpScreen = () => {
     setIsLoading(false);
   };
   const gradient = isDark
-    ? ['#253349', '#1C2A3A', '#0F1822', '#080E16']
-    : ['#7aa8ea', '#b3cef3', '#edf5fe', '#e8f5fc'];
+    ? (['#253349', '#1C2A3A', '#0F1822', '#080E16'] as const)
+    : (['#7aa8ea', '#b3cef3', '#edf5fe', '#e8f5fc'] as const);
   const handleSignIn = () => {
     navigation.dispatch(StackActions.replace('SignIn'));
   };
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      className="flex-1 bg-background"
-    >
+      className="flex-1 bg-background">
       <LinearGradient
         colors={gradient}
         start={{ x: 0, y: 0 }}
@@ -77,11 +76,10 @@ const SignUpScreen = () => {
       <View className="flex-1 ">
         <ScrollView
           keyboardShouldPersistTaps="handled"
-          contentContainerClassName="flex-grow justify-start items-center py-10 px-6"
-        >
-          <View className="bg-card w-full rounded-3xl p-7 border border-border gap-4">
+          contentContainerClassName="flex-grow justify-start items-center py-10 px-6">
+          <View className="w-full gap-4 rounded-3xl border border-border bg-card p-7">
             <View className="flex-row items-center justify-center gap-x-3">
-              <Text className="text-2xl font-bold text-primary tracking-tight">
+              <Text className="text-2xl font-bold tracking-tight text-primary">
                 Create an account
               </Text>
             </View>
@@ -141,7 +139,7 @@ const SignUpScreen = () => {
               )}
             />
             <View className="">
-              <Text className="text-sm font-medium text-foreground mb-2">
+              <Text className="mb-2 text-sm font-medium text-foreground">
                 Date of Birth <Text className="text-destructive">*</Text>
               </Text>
 
@@ -160,9 +158,7 @@ const SignUpScreen = () => {
               />
 
               {errors.dob && (
-                <Text className="text-destructive text-xs mt-1 ml-0.5">
-                  {errors.dob.message}
-                </Text>
+                <Text className="ml-0.5 mt-1 text-xs text-destructive">{errors.dob.message}</Text>
               )}
             </View>
             <Controller
@@ -184,7 +180,7 @@ const SignUpScreen = () => {
               )}
             />
             <View className="">
-              <Text className="text-sm font-medium text-foreground mb-2">
+              <Text className="mb-2 text-sm font-medium text-foreground">
                 Gender <Text className="text-destructive">*</Text>
               </Text>
 
@@ -192,15 +188,12 @@ const SignUpScreen = () => {
                 name="gender"
                 control={control}
                 render={({ field: { onChange } }) => (
-                  <GenderSelectField
-                    onGenderChange={onChange}
-                    error={!!errors.gender}
-                  />
+                  <GenderSelectField onGenderChange={onChange} error={!!errors.gender} />
                 )}
               />
 
               {errors.gender && (
-                <Text className="text-destructive text-xs mt-1 ml-0.5">
+                <Text className="ml-0.5 mt-1 text-xs text-destructive">
                   {errors.gender.message}
                 </Text>
               )}
@@ -242,42 +235,34 @@ const SignUpScreen = () => {
               )}
             />
             <TouchableOpacity
-              className={`bg-primary rounded-2xl py-4 items-center justify-center mb-5 ${
+              className={`mb-5 items-center justify-center rounded-2xl bg-primary py-4 ${
                 !isValid || isLoading ? 'opacity-50' : ''
               }`}
               onPress={handleSubmit(onSubmit)}
               disabled={!isValid || isLoading}
-              activeOpacity={0.85}
-            >
+              activeOpacity={0.85}>
               {isLoading ? (
                 <ActivityIndicator color="#FFFFFF" size="small" />
               ) : (
                 <View className="flex-row items-center gap-x-2">
-                  <Text className="text-primary-foreground text-lg font-bold tracking-widest">
+                  <Text className="text-lg font-bold tracking-widest text-primary-foreground">
                     SIGN UP
                   </Text>
                 </View>
               )}
             </TouchableOpacity>
-            <View className="flex-row items-center mb-5">
-              <View className="flex-1 h-px bg-border" />
-              <Text className="mx-4 text-muted-foreground text-sm font-semibold">
-                OR
-              </Text>
-              <View className="flex-1 h-px bg-border" />
+            <View className="mb-5 flex-row items-center">
+              <View className="h-px flex-1 bg-border" />
+              <Text className="mx-4 text-sm font-semibold text-muted-foreground">OR</Text>
+              <View className="h-px flex-1 bg-border" />
             </View>
             <TouchableOpacity
               className="flex-row items-center justify-center"
               onPress={handleSignIn}
-              activeOpacity={0.8}
-            >
-              <Text className="text-foreground text-base">
-                Already have an account?{'  '}
-              </Text>
+              activeOpacity={0.8}>
+              <Text className="text-base text-foreground">Already have an account?{'  '}</Text>
               <View className="flex-row items-center gap-x-1">
-                <Text className="text-primary text-base font-bold">
-                  Sign In
-                </Text>
+                <Text className="text-base font-bold text-primary">Sign In</Text>
               </View>
             </TouchableOpacity>
           </View>

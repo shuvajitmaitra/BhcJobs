@@ -24,10 +24,9 @@ const InfoCard = ({
       className="flex-1 items-center justify-center rounded-2xl border border-border bg-card px-5 py-6"
     >
       <View
+        style={roundedImage ? { overflow: 'hidden' } : undefined}
         className={`mb-[18px] h-14 w-14 items-center justify-center ${
-          roundedImage
-            ? 'overflow-hidden rounded-full border border-primary'
-            : ''
+          roundedImage ? 'rounded-full border border-primary' : ''
         }`}
       >
         {imageUri ? (
