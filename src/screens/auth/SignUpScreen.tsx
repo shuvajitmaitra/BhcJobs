@@ -130,7 +130,7 @@ const SignUpScreen = () => {
                   onChangeText={(text: string) => {
                     onChange(text.trim());
                   }}
-                  placeholder="enter email"
+                  placeholder="Enter email"
                   errorMessage={errors.email?.message}
                   isRequired={true}
                   error={!!errors.email}

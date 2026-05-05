@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ActivityIndicator,
+  Keyboard,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { z } from 'zod';
@@ -61,6 +62,7 @@ const SignInScreen = () => {
   });
 
   const onSubmit = async (data: FormData) => {
+    Keyboard.dismiss()
     setIsLoading(true);
 
     const response = await signInUser(data);

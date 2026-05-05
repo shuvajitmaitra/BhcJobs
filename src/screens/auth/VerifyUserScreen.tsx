@@ -78,6 +78,7 @@ const VerifyUserScreen = () => {
     }
     setIsLoading(true);
     const response = await verifyPhone({ phone: route?.params?.phone, otp });
+    console.log('response', JSON.stringify(response, null, 2))
     if (response?.status) {
       navigation.dispatch(StackActions.replace('SignIn'));
     } else {
