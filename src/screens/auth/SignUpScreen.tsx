@@ -91,7 +91,7 @@ const SignUpScreen = () => {
                   type="name"
                   value={value}
                   onChangeText={(text: string) => {
-                    onChange(text.trim());
+                    onChange(text);
                   }}
                   placeholder="Full Name"
                   errorMessage={errors.name?.message}
@@ -151,7 +151,6 @@ const SignUpScreen = () => {
                     value={value}
                     onDateChange={(date: Date) => {
 const fDate = formatDate(date).short
-console.log('fDate', JSON.stringify(fDate, null, 2))
                       onChange(fDate);
                     }}
                     error={!!errors.dob}
